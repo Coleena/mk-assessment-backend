@@ -1,1 +1,0 @@
-web: node functions/functions.js
