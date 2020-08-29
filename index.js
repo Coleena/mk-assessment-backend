@@ -40,7 +40,7 @@ app.post('/edit', async (req, res) => {
     if (item["ID"] && item["ITEM Name"] && item ["COST"]) {
         await client.query('INSERT INTO items(\n' +
             '"ID", "ITEM Name", "COST")\n' +
-            `VALUES (${item["ID"]}, ${item["ITEM Name"]}, ${item["COST"]})`, (err, r) => {
+            `VALUES (${item["ID"]}, '${item["ITEM Name"]}', 58${item["COST"]})`, (err, r) => {
             if (err) throw err;
 
             res.sendStatus(201);
