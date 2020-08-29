@@ -37,16 +37,15 @@ app.get('/prices/:iname', async (req, res) => {
 // New item
 app.post('/edit', async (req, res) => {
     const item = req.body;
+    console.log(item);
     if (item["ID"] && item["ITEM Name"] && item ["COST"]) {
         await client.query('INSERT INTO items(\n' +
             '"ID", "ITEM Name", "COST")\n' +
-            `VALUES (${item["ID"]}, '${item["ITEM Name"]}', 58${item["COST"]})`, (err, r) => {
+            `VALUES (${item["ID"]}, '${item["ITEM Name"]}', ${item["COST"]})`, (err, r) => {
             if (err) throw err;
 
             res.sendStatus(201);
         })
-
-        res.send(`Post request: /edit`);
     }
     else {
         res.sendStatus(400);
