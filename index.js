@@ -14,14 +14,15 @@ client.connect();
 app.use(express.json());
 
 app.get('/prices', async (req, res) => {
-    let prices = {};
+    let prices = [];
 
     await client.query('SELECT "ITEM Name", MAX("COST")\n' +
         'FROM items\n' +
         'GROUP BY "ITEM Name"', (err, res) => {
 
         if (err) throw err;
-        console.log(JSON.stringify(res.rows));
+
+        prices = res.rows;
         for (let row of res.rows) {
             console.log(JSON.stringify(row));
         }
