@@ -14,6 +14,8 @@ client.connect();
 app.use(express.json());
 
 app.get('/prices', (req, res) => {
+    res.send("Get request: /prices");
+    
     client.query('SELECT "ITEM Name", MAX("COST")\n' +
         'FROM items\n' +
         'GROUP BY "ITEM Name"', (err, res) => {
@@ -23,7 +25,8 @@ app.get('/prices', (req, res) => {
             console.log(JSON.stringify(row));
         }
 
-        res.send("Get request: /prices");
+    }).then(() => {
+        console.log("test");
     });
 });
 app.get('/prices/:iname', (req, res) => {
