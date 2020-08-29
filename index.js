@@ -34,18 +34,25 @@ app.get('/prices/:iname', async (req, res) => {
     });
 });
 
-app.post('/edit', (req, res) => {
-    try {
-        console.log(req.body);
-        const item = req.body;
-        console.log(typeof item);
-    }
-    catch (err) {
-        throw err;
-    }
+// New item
+app.post('/edit', async (req, res) => {
+    const item = req.body;
+    if (item["ID"] && item["ITEM Name"] && item ["COST"]) {
+        await client.query('INSERT INTO items(\n' +
+            '"ID", "ITEM Name", "COST")\n' +
+            `VALUES (${item["ID"]}, ${item["ITEM Name"]}, ${item["COST"]})`, (err, r) => {
+            if (err) throw err;
 
-    res.send(`Post request: /edit`);
+            res.sendStatus(201);
+        })
+
+        res.send(`Post request: /edit`);
+    }
+    else {
+        res.sendStatus(400);
+    }
 });
+// Edit item
 app.patch('/edit', (req, res) => {
 
     res.send(`Patch request: /edit`);
