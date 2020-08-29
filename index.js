@@ -14,7 +14,6 @@ client.connect();
 app.use(express.json());
 
 app.get('/prices', async (req, res) => {
-
     await client.query('SELECT "ITEM Name", MAX("COST")\n' +
         'FROM items\n' +
         'GROUP BY "ITEM Name"', (err, r) => {
@@ -28,8 +27,17 @@ app.get('/prices', async (req, res) => {
         res.json(r.rows);
     });
 });
-app.get('/prices/:iname', (req, res) => {
-    res.send(`Get request: /prices/${req.params.iname}`);
+app.get('/prices/:iname', async (req, res) => {
+    await client.query('SELECT MAX("COST")\n' +
+        'FROM items\n' +
+        `WHERE "ITEM Name"=${req.params.iname}`, (err, r) => {
+
+        if (err) throw err;
+
+        console.log(r);
+
+        res.send(`Get request: /prices/${req.params.iname}`);
+    });
 });
 
 app.post('/edit', (req, res) => {
