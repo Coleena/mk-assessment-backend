@@ -18,9 +18,12 @@ app.get('/prices', async (req, res) => {
         'FROM items\n' +
         'GROUP BY "ITEM Name"', (err, r) => {
 
-        if (err) throw err;
-
-        res.json(r.rows);
+        if (err) {
+            res.sendStatus(404);
+        }
+        else {
+            res.json(r.rows);
+        }
     });
 });
 app.get('/prices/:iname', async (req, res) => {
@@ -28,9 +31,12 @@ app.get('/prices/:iname', async (req, res) => {
         'FROM items\n' +
         `WHERE "ITEM Name"='${req.params.iname}'`, (err, r) => {
 
-        if (err) throw err;
-
-        res.json(r.rows[0]["max"]);
+        if (err) {
+            res.sendStatus(404);
+        }
+        else {
+            res.json(r.rows[0]["max"]);
+        }
     });
 });
 
@@ -42,9 +48,13 @@ app.post('/edit', async (req, res) => {
         await client.query('INSERT INTO items(\n' +
             '"ID", "ITEM Name", "COST")\n' +
             `VALUES (${item["ID"]}, '${item["ITEM Name"]}', ${item["COST"]})`, (err, r) => {
-            if (err) throw err;
-
-            res.sendStatus(201);
+            if (err) {
+                res.sendStatus(400);
+                console.log(err);
+            }
+            else {
+                res.sendStatus(201);
+            }
         })
     }
     else {
