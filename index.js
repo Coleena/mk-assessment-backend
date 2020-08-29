@@ -30,7 +30,7 @@ app.get('/prices', async (req, res) => {
 app.get('/prices/:iname', async (req, res) => {
     await client.query('SELECT MAX("COST")\n' +
         'FROM items\n' +
-        `WHERE "ITEM Name"=${req.params.iname}`, (err, r) => {
+        `WHERE "ITEM Name"='${req.params.iname}'`, (err, r) => {
 
         if (err) throw err;
 
