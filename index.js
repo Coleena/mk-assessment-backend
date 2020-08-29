@@ -36,7 +36,7 @@ app.get('/prices/:iname', async (req, res) => {
 
         console.log(r.rows);
 
-        res.send(r.rows[0]["max"]);
+        res.json(r.rows[0]["max"]);
     });
 });
 
