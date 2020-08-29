@@ -34,9 +34,9 @@ app.get('/prices/:iname', async (req, res) => {
 
         if (err) throw err;
 
-        console.log(r);
+        console.log(r.rows);
 
-        res.send(`Get request: /prices/${req.params.iname}`);
+        res.send(`r.rows`);
     });
 });
 
