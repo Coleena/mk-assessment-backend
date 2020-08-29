@@ -23,11 +23,13 @@ app.get('/prices', async (req, res) => {
         if (err) throw err;
 
         prices = res.rows;
+        console.log(prices);
         for (let row of res.rows) {
             console.log(JSON.stringify(row));
         }
     });
 
+    console.log(prices);
     res.json(prices);
 });
 app.get('/prices/:iname', (req, res) => {
