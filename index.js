@@ -14,17 +14,20 @@ client.connect();
 app.use(express.json());
 
 app.get('/prices', async (req, res) => {
+    let prices = {};
+
     await client.query('SELECT "ITEM Name", MAX("COST")\n' +
         'FROM items\n' +
         'GROUP BY "ITEM Name"', (err, res) => {
 
         if (err) throw err;
+        console.log(JSON.stringify(res.rows));
         for (let row of res.rows) {
             console.log(JSON.stringify(row));
         }
     });
 
-    res.send("Get request: /prices");
+    res.json(prices);
 });
 app.get('/prices/:iname', (req, res) => {
     res.send(`Get request: /prices/${req.params.iname}`);
