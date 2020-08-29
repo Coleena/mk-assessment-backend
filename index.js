@@ -36,8 +36,9 @@ app.get('/prices/:iname', async (req, res) => {
 
 app.post('/edit', (req, res) => {
     try {
-        const item = JSON.parse(req.body);
-        console.log(item);
+        console.log(req.body);
+        const item = req.body;
+        console.log(typeof item);
     }
     catch (err) {
         throw err;
