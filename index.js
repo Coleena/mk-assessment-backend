@@ -20,10 +20,6 @@ app.get('/prices', async (req, res) => {
 
         if (err) throw err;
 
-        for (let row of r.rows) {
-            console.log(JSON.stringify(row));
-        }
-
         res.json(r.rows);
     });
 });
@@ -34,15 +30,19 @@ app.get('/prices/:iname', async (req, res) => {
 
         if (err) throw err;
 
-        console.log(r.rows);
-
         res.json(r.rows[0]["max"]);
     });
 });
 
 app.post('/edit', (req, res) => {
-    const item = req.body;
-    console.log(item);
+    try {
+        const item = JSON.parse(req.body);
+        console.log(item);
+    }
+    catch (err) {
+        throw err;
+    }
+
     res.send(`Post request: /edit`);
 });
 app.patch('/edit', (req, res) => {
