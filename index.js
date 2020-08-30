@@ -43,11 +43,12 @@ app.get('/prices/:iname', async (req, res) => {
 // New item
 app.post('/edit', async (req, res) => {
     const item = req.body;
-    console.log(item);
+
     if (item["ID"] && item["ITEM Name"] && item ["COST"]) {
         await client.query('INSERT INTO items(\n' +
             '"ID", "ITEM Name", "COST")\n' +
             `VALUES (${item["ID"]}, '${item["ITEM Name"]}', ${item["COST"]})`, (err, r) => {
+
             if (err) {
                 res.sendStatus(400);
                 console.log(err);
@@ -62,9 +63,26 @@ app.post('/edit', async (req, res) => {
     }
 });
 // Edit item
-app.patch('/edit', (req, res) => {
+app.patch('/edit', async (req, res) => {
+    const item = req.body;
 
-    res.send(`Patch request: /edit`);
+    if (item["ID"] && item["ITEM Name"] && item ["COST"]) {
+        await client.query('UPDATE items\n' +
+            `SET "ITEM Name"='${item["ITEM Name"]}], "COST"=${item["COST"]})\n` +
+            `WHERE "ID"=${item["ID"]})`, (err, r) => {
+
+            if (err) {
+                res.sendStatus(400);
+                console.log(err);
+            }
+            else {
+                res.sendStatus(201);
+            }
+        })
+    }
+    else {
+        res.sendStatus(400);
+    }
 });
 app.delete('/edit', (req, res) => {
 
