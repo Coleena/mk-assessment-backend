@@ -65,7 +65,6 @@ app.post('/edit', async (req, res) => {
 // Edit item
 app.patch('/edit/:iid', async (req, res) => {
     const item = req.body;
-    console.log(req.body);
 
     if (item["ITEM Name"] && item ["COST"]) {
         await client.query('UPDATE items\n' +
@@ -77,7 +76,7 @@ app.patch('/edit/:iid', async (req, res) => {
                 res.sendStatus(400);
             }
             else {
-                res.sendStatus(201);
+                res.sendStatus(200);
             }
         })
     }
@@ -85,9 +84,19 @@ app.patch('/edit/:iid', async (req, res) => {
         res.sendStatus(400);
     }
 });
-app.delete('/edit', (req, res) => {
+// Delete item
+app.delete('/edit/:iid', async (req, res) => {
+    await client.query('DELETE FROM items\n' +
+        `WHERE "ID"=${req.params.iid}`, (err, r) => {
 
-    res.send(`Delete request: /edit`);
+        if (err) {
+            console.log(err);
+            res.sendStatus(400);
+        }
+        else {
+            res.sendStatus(200);
+        }
+    })
 });
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
