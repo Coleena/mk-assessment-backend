@@ -68,8 +68,8 @@ app.patch('/edit', async (req, res) => {
 
     if (item["ID"] && item["ITEM Name"] && item ["COST"]) {
         await client.query('UPDATE items\n' +
-            `SET "ITEM Name"='${item["ITEM Name"]}], "COST"=${item["COST"]}\n` +
-            `WHERE "ID"=${item["ID"]})`, (err, r) => {
+            `SET "ITEM Name"='${item["ITEM Name"]}', "COST"=${item["COST"]}\n` +
+            `WHERE "ID"=${item["ID"]}`, (err, r) => {
 
             if (err) {
                 console.log(err);
