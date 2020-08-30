@@ -63,18 +63,17 @@ app.post('/edit', async (req, res) => {
     }
 });
 // Edit item
-app.patch('/edit', async (req, res) => {
+app.patch('/edit/:iid', async (req, res) => {
     const item = req.body;
     console.log(req.body);
 
-    if (item["ID"] && item["ITEM Name"] && item ["COST"]) {
+    if (item["ITEM Name"] && item ["COST"]) {
         await client.query('UPDATE items\n' +
             `SET "ITEM Name"='${item["ITEM Name"]}', "COST"=${item["COST"]}\n` +
-            `WHERE "ID"=${item["ID"]}`, (err, r) => {
+            `WHERE "ID"=${req.params.iid}`, (err, r) => {
 
             if (err) {
                 console.log(err);
-                console.log("test2");
                 res.sendStatus(400);
             }
             else {
@@ -83,7 +82,6 @@ app.patch('/edit', async (req, res) => {
         })
     }
     else {
-        console.log("test");
         res.sendStatus(400);
     }
 });
