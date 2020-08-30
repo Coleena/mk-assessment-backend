@@ -65,6 +65,7 @@ app.post('/edit', async (req, res) => {
 // Edit item
 app.patch('/edit', async (req, res) => {
     const item = req.body;
+    console.log(item);
 
     if (item["ID"] && item["ITEM Name"] && item ["COST"]) {
         await client.query('UPDATE items\n' +
