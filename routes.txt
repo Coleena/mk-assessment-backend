@@ -1,0 +1,14 @@
+GET /prices
+Returns a list of max prices of items grouped by item name
+
+GET /prices/:itemname
+Returns the max price for ${itemname}
+
+POST /edit
+Creates a new item given JSON inputs of "ID", "ITEM Name", and "COST"
+
+PATCH /edit/:itemid
+Edits entry ${itemid} given JSON inputs of "ITEM Name" and "COST"
+
+DELETE /edit/:itemid
+Deletes entry ${itemid}
