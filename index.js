@@ -50,8 +50,8 @@ app.post('/edit', async (req, res) => {
             `VALUES (${item["ID"]}, '${item["ITEM Name"]}', ${item["COST"]})`, (err, r) => {
 
             if (err) {
-                res.sendStatus(400);
                 console.log(err);
+                res.sendStatus(400);
             }
             else {
                 res.sendStatus(201);
@@ -68,12 +68,12 @@ app.patch('/edit', async (req, res) => {
 
     if (item["ID"] && item["ITEM Name"] && item ["COST"]) {
         await client.query('UPDATE items\n' +
-            `SET "ITEM Name"='${item["ITEM Name"]}], "COST"=${item["COST"]})\n` +
+            `SET "ITEM Name"='${item["ITEM Name"]}], "COST"=${item["COST"]}\n` +
             `WHERE "ID"=${item["ID"]})`, (err, r) => {
 
             if (err) {
-                res.sendStatus(400);
                 console.log(err);
+                res.sendStatus(400);
             }
             else {
                 res.sendStatus(201);
