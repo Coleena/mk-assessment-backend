@@ -13,7 +13,20 @@ client.connect();
 
 app.use(express.json());
 
-app.get('/prices', async (req, res) => {
+app.get('/price', async (req, res) => {
+    await client.query('SELECT *\n' +
+        'FROM items', (err, r) => {
+
+        if (err) {
+            res.sendStatus(404);
+        }
+        else {
+            res.json(r.rows);
+        }
+    });
+});
+
+app.get('/maxprice', async (req, res) => {
     await client.query('SELECT "ITEM Name", MAX("COST")\n' +
         'FROM items\n' +
         'GROUP BY "ITEM Name"', (err, r) => {
@@ -26,7 +39,7 @@ app.get('/prices', async (req, res) => {
         }
     });
 });
-app.get('/prices/:iname', async (req, res) => {
+app.get('/maxprice/:iname', async (req, res) => {
     await client.query('SELECT MAX("COST")\n' +
         'FROM items\n' +
         `WHERE "ITEM Name"='${req.params.iname}'`, (err, r) => {
