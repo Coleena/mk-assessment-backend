@@ -26,6 +26,20 @@ app.get('/price', async (req, res) => {
     });
 });
 
+app.get('/price/:iname', async (req, res) => {
+    await client.query('SELECT *\n' +
+        'FROM items\n' +
+        `WHERE "ITEM Name"='${req.params.iname}'`, (err, r) => {
+
+        if (err) {
+            res.sendStatus(404);
+        }
+        else {
+            res.json(r.rows);
+        }
+    });
+});
+
 app.get('/maxprice', async (req, res) => {
     await client.query('SELECT "ITEM Name", MAX("COST")\n' +
         'FROM items\n' +

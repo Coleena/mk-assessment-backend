@@ -1,3 +1,9 @@
+GET /price
+Returns all entries in the items table (ID, item name, cost)
+
+GET /price/:itemname
+Returns all entries with ${itemname}
+
 GET /maxprices
 Returns a list of max prices of items grouped by item name
 
