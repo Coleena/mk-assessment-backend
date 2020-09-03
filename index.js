@@ -82,6 +82,21 @@ app.get('/maxprice/:iname', async (req, res) => {
 app.post('/edit', async (req, res) => {
     const item = req.body;
 
+    if (isNaN(item["ID"])) {
+        res.status(400).send({
+            message: "ID must be an integer."
+        });
+
+        return;
+    }
+    if (isNaN(item["COST"])) {
+        res.status(400).send({
+            message: "COST must be an integer."
+        });
+
+        return;
+    }
+
     if (item["ID"] && item["ITEM Name"] && item ["COST"]) {
         await client.query('INSERT INTO items(\n' +
             '"ID", "ITEM Name", "COST")\n' +
