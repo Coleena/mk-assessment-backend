@@ -50,7 +50,8 @@ app.get('/price/:iname', async (req, res) => {
 app.get('/maxprice', async (req, res) => {
     await client.query('SELECT "ITEM Name", MAX("COST")\n' +
         'FROM items\n' +
-        'GROUP BY "ITEM Name"', (err, r) => {
+        'GROUP BY "ITEM Name"\n' +
+        'ORDER BY "ITEM Name"', (err, r) => {
 
         if (err) {
             res.status(404).send({
