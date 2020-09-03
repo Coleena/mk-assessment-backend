@@ -20,7 +20,7 @@ app.get('/price', async (req, res) => {
         'FROM items', (err, r) => {
 
         if (err) {
-            res.send(404).send({
+            res.status(404).send({
                 message: err.detail
             });
         }
@@ -36,7 +36,7 @@ app.get('/price/:iname', async (req, res) => {
         `WHERE "ITEM Name"='${req.params.iname}'`, (err, r) => {
 
         if (err) {
-            res.send(404).send({
+            res.status(404).send({
                 message: err.detail
             });
         }
@@ -52,7 +52,9 @@ app.get('/maxprice', async (req, res) => {
         'GROUP BY "ITEM Name"', (err, r) => {
 
         if (err) {
-            res.sendStatus(404);
+            res.status(404).send({
+                message: err.detail
+            });
         }
         else {
             res.json(r.rows);
@@ -65,7 +67,7 @@ app.get('/maxprice/:iname', async (req, res) => {
         `WHERE "ITEM Name"='${req.params.iname}'`, (err, r) => {
 
         if (err) {
-            res.send(404).send({
+            res.status(404).send({
                 message: err.detail
             });
         }
@@ -86,7 +88,7 @@ app.post('/edit', async (req, res) => {
 
             if (err) {
                 console.log(err);
-                res.send(400).send({
+                res.status(400).send({
                     message: err.detail
                 });
             }
@@ -110,7 +112,7 @@ app.patch('/edit/:iid', async (req, res) => {
 
             if (err) {
                 console.log(err);
-                res.send(400).send({
+                res.status(400).send({
                     message: err.detail
                 });
             }
@@ -130,7 +132,9 @@ app.delete('/edit/:iid', async (req, res) => {
 
         if (err) {
             console.log(err);
-            res.sendStatus(400);
+            res.status(400).send({
+                message: err.detail
+            });
         }
         else {
             res.sendStatus(200);
