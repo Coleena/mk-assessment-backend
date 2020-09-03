@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 5000
 
@@ -12,6 +13,7 @@ const client = new Client({
 client.connect();
 
 app.use(express.json());
+app.use(cors());
 
 app.get('/price', async (req, res) => {
     await client.query('SELECT *\n' +
