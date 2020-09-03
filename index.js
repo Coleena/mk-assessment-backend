@@ -95,9 +95,9 @@ app.post('/edit', async (req, res) => {
 app.patch('/edit/:iid', async (req, res) => {
     const item = req.body;
 
-    if (item["ITEM Name"] && item ["COST"]) {
+    if (item["ID"] && item["ITEM Name"] && item ["COST"]) {
         await client.query('UPDATE items\n' +
-            `SET "ITEM Name"='${item["ITEM Name"]}', "COST"=${item["COST"]}\n` +
+            `SET "ID"=${item["ID"]}, "ITEM Name"='${item["ITEM Name"]}', "COST"=${item["COST"]}\n` +
             `WHERE "ID"=${req.params.iid}`, (err, r) => {
 
             if (err) {
