@@ -106,14 +106,14 @@ app.post('/edit', async (req, res) => {
 app.patch('/edit/:iid', async (req, res) => {
     const item = req.body;
 
-    if (!item["ID"].isInteger) {
+    if (isNaN(item["ID"])) {
         res.status(400).send({
             message: "ID must be an integer."
         });
 
         return;
     }
-    if (!item["COST"].isInteger) {
+    if (isNaN(item["COST"])) {
         res.status(400).send({
             message: "COST must be an integer."
         });
