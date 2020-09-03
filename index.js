@@ -20,7 +20,9 @@ app.get('/price', async (req, res) => {
         'FROM items', (err, r) => {
 
         if (err) {
-            res.sendStatus(404);
+            res.send(404).send({
+                message: err.detail
+            });
         }
         else {
             res.json(r.rows);
@@ -34,7 +36,9 @@ app.get('/price/:iname', async (req, res) => {
         `WHERE "ITEM Name"='${req.params.iname}'`, (err, r) => {
 
         if (err) {
-            res.sendStatus(404);
+            res.send(404).send({
+                message: err.detail
+            });
         }
         else {
             res.json(r.rows);
@@ -61,7 +65,9 @@ app.get('/maxprice/:iname', async (req, res) => {
         `WHERE "ITEM Name"='${req.params.iname}'`, (err, r) => {
 
         if (err) {
-            res.sendStatus(404);
+            res.send(404).send({
+                message: err.detail
+            });
         }
         else {
             res.json(r.rows[0]["max"]);
@@ -80,7 +86,9 @@ app.post('/edit', async (req, res) => {
 
             if (err) {
                 console.log(err);
-                res.sendStatus(400);
+                res.send(400).send({
+                    message: err.detail
+                });
             }
             else {
                 res.sendStatus(201);
@@ -102,7 +110,7 @@ app.patch('/edit/:iid', async (req, res) => {
 
             if (err) {
                 console.log(err);
-                res.sendStatus(400).send({
+                res.send(400).send({
                     message: err.detail
                 });
             }
