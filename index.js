@@ -34,7 +34,8 @@ app.get('/price', async (req, res) => {
 app.get('/price/:iname', async (req, res) => {
     await client.query('SELECT *\n' +
         'FROM items\n' +
-        `WHERE "ITEM Name"='${req.params.iname}'`, (err, r) => {
+        `WHERE "ITEM Name"='${req.params.iname}'\n` +
+        'ORDER BY "ID"', (err, r) => {
 
         if (err) {
             res.status(404).send({
