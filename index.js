@@ -99,7 +99,9 @@ app.post('/edit', async (req, res) => {
         })
     }
     else {
-        res.sendStatus(400);
+        res.status(400).send({
+            message: "All fields are required."
+        });
     }
 });
 // Edit item
@@ -138,7 +140,9 @@ app.patch('/edit/:iid', async (req, res) => {
         })
     }
     else {
-        res.sendStatus(400);
+        res.status(400).send({
+            message: "All fields are required."
+        });
     }
 });
 // Delete item
