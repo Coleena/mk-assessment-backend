@@ -17,7 +17,8 @@ app.use(cors());
 
 app.get('/price', async (req, res) => {
     await client.query('SELECT *\n' +
-        'FROM items', (err, r) => {
+        'FROM items\n' +
+        'ORDER BY "ID"', (err, r) => {
 
         if (err) {
             res.status(404).send({
