@@ -106,6 +106,21 @@ app.post('/edit', async (req, res) => {
 app.patch('/edit/:iid', async (req, res) => {
     const item = req.body;
 
+    if (!item["ID"].isInteger) {
+        res.status(400).send({
+            message: "ID must be an integer."
+        });
+
+        return;
+    }
+    if (!item["COST"].isInteger) {
+        res.status(400).send({
+            message: "COST must be an integer."
+        });
+
+        return;
+    }
+
     if (item["ID"] && item["ITEM Name"] && item ["COST"]) {
         await client.query('UPDATE items\n' +
             `SET "ID"=${item["ID"]}, "ITEM Name"='${item["ITEM Name"]}', "COST"=${item["COST"]}\n` +
