@@ -102,7 +102,9 @@ app.patch('/edit/:iid', async (req, res) => {
 
             if (err) {
                 console.log(err);
-                res.sendStatus(400);
+                res.sendStatus(400).send({
+                    message: err.detail
+                });
             }
             else {
                 res.sendStatus(200);
